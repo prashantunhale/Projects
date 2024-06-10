@@ -3,9 +3,9 @@
 
 Highlights:
 -----------
-1. 100% Code Coverage of FIX Parser
+1. 100% Code Coverage of FIX Parser (with build level control gate set at 90%)
 2. No external libraries (except JUnit and JaCoCo for Code Coverage)
-3. Benchmarking
+3. Basic Benchmarking
 
 Code Coverage:
 --------------
