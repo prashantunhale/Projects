@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Benchmark.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">fixparser</a> &gt; <a href="index.source.html" class="el_package">com.tools</a> &gt; <span class="el_source">Benchmark.java</span></div><h1>Benchmark.java</h1><pre class="source lang-java linenums">package com.tools;
+
+<span class="nc" id="L3">public class Benchmark {</span>
+    public static void main(String[] args) {
+        
+<span class="nc" id="L6">        String inputFIXMessage = &quot;8=FIX.4.2\u00019=163\u000135=D\u000134=972\u000149=TESTBUY3\u000152=20190206-16:25:10.403\u000156=TESTSELL3\u000111=141636850670842269979\u000121=2\u000138=100\u000140=1\u000154=1\u000155=AAPL\u000160=20190206-16:25:08.968\u0001207=TO\u00016000=TEST1234\u000110=106\u0001&quot;;</span>
+<span class="nc" id="L7">        int iterations = 1000000;</span>
+
+<span class="nc" id="L9">        byte[] msg = inputFIXMessage.getBytes();</span>
+
+<span class="nc" id="L11">        FIXParser fixParser = new FIXParser();</span>
+
+<span class="nc" id="L13">        long startTime = System.nanoTime();</span>
+
+<span class="nc bnc" id="L15" title="All 2 branches missed.">        for(int i = 0 ; i &lt; iterations; i++){</span>
+<span class="nc" id="L16">            fixParser.parse(msg);</span>
+        }
+
+<span class="nc" id="L19">        long endTime = System.nanoTime();</span>
+
+<span class="nc" id="L21">        long duration = (endTime - startTime)/1000000;</span>
+
+<span class="nc" id="L23">        FIXMessage fixMessage = fixParser.parse(msg);</span>
+
+<span class="nc" id="L25">        System.out.println(&quot;Output: &quot; + fixMessage);</span>
+<span class="nc" id="L26">        System.out.println(&quot;For &quot; + iterations + &quot; time taken: &quot; + duration + &quot;ms&quot;);</span>
+
+<span class="nc" id="L28">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

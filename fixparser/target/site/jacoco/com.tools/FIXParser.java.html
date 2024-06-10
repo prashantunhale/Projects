@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>FIXParser.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">fixparser</a> &gt; <a href="index.source.html" class="el_package">com.tools</a> &gt; <span class="el_source">FIXParser.java</span></div><h1>FIXParser.java</h1><pre class="source lang-java linenums">package com.tools;
+
+<span class="fc" id="L3">public class FIXParser {</span>
+
+    public FIXMessage parse(byte[] msg) {
+
+<span class="fc" id="L7">        char startOfHeading = '\u0001'; // SOH character is used as a delimiter to separate different tags within a FIX message</span>
+<span class="fc" id="L8">        char equals = '='; // Equals character is used as a delimiter to separate tag and its value within a FIX message</span>
+
+<span class="fc" id="L10">        FIXMessage fixMessage = new FIXMessage();</span>
+
+<span class="fc" id="L12">        int start = 0;</span>
+<span class="fc" id="L13">        int length = msg.length;</span>
+
+<span class="fc bfc" id="L15" title="All 2 branches covered.">        while (start &lt; length) {</span>
+            // Iterate through till we first find '=' and subsequently 'SOH'
+
+<span class="fc" id="L18">            int equalsIndex = -1;</span>
+
+<span class="fc" id="L20">            int end = start;</span>
+
+            // Find the '=' character
+<span class="fc bfc" id="L23" title="All 4 branches covered.">            while (end &lt; length &amp;&amp; msg[end] != equals) {</span>
+<span class="fc" id="L24">                end++;</span>
+            }
+<span class="fc" id="L26">            equalsIndex = end;</span>
+
+            // Find the '\u0001' character
+<span class="fc bfc" id="L29" title="All 4 branches covered.">            while (end &lt; length &amp;&amp; msg[end] != startOfHeading) {</span>
+<span class="fc" id="L30">                end++;</span>
+            }
+
+            // Extract the tag and its value
+<span class="fc bfc" id="L34" title="All 2 branches covered.">            if (end &lt; length) {</span>
+
+<span class="fc" id="L36">                String tag = new String(msg, start, equalsIndex - start);</span>
+<span class="fc" id="L37">                String tagValue = new String(msg, equalsIndex + 1, end - equalsIndex - 1);</span>
+
+<span class="fc" id="L39">                fixMessage.addTag(tag, tagValue);</span>
+            }
+
+            // Continue to next tag (if any)
+<span class="fc" id="L43">            start = end + 1;</span>
+<span class="fc" id="L44">        }</span>
+
+<span class="fc" id="L46">        return fixMessage;</span>
+
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
